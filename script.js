@@ -24,3 +24,13 @@ for(let i = 0; i < 16; i++){
 //document.querySelector('#inner-row').setAttribute('style','border: 3px solid black;')
 
 document.body.appendChild(containerDiv);
+
+containerDiv.addEventListener('mouseover', (e) => {
+    let target = e.target;
+    console.log(target.id);
+    const activeObject = document.querySelector(`#${e.target.id}`)
+    if(target.id.includes('row-inner')){
+        activeObject.classList.add('active')
+    }
+
+})
