@@ -6,15 +6,15 @@ column.setAttribute('id','column');
 for(let i = 0; i < 16; i++){
     const row = document.createElement('div');
     row.setAttribute('id','row'+i);
-    row.classList.add('row')
+    row.classList.add('row');
 
     console.log(`i ${i}`)
     for(let j = 0; j < 16; j++){
-        console.log(`j ${j}`)
+        console.log(`j ${j}`);
         const innerRow = document.createElement('div');
-        innerRow.setAttribute('id','inner-row'+j);
-        row.appendChild(innerRow)
-        innerRow.classList.add('inner')
+        innerRow.setAttribute('id','row-inner'+j);
+        row.appendChild(innerRow);
+        innerRow.classList.add('inner');
     }
     
     column.appendChild(row);
