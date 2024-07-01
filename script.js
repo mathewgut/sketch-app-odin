@@ -1,12 +1,25 @@
 const containerDiv = document.querySelector('#container-div');
 const column = document.createElement('div');
 column.setAttribute('id','column');
+const pixelsPerSquare = document.createElement('div');
+
 
 document.addEventListener('DOMContentLoaded',() => {
-    createGrid()
+    document.body.appendChild(containerDiv);
+    createGrid();
 });
 
+function gridElementSize (inputDimension){
+    totalSize = '960';
+    const totalElements = inputDimension ** 2
+    const unitSize = totalSize/totalElements
+    pixelsPerSquare.textContent = `${unitSize}rem per square`;
+    containerDiv.appendChild(pixelsPerSquare);
+    return unitSize
+}
+
 function createGrid(size=16){
+    const unitSize = gridElementSize(size)
     for(let i = 0; i < size; i++){
         const row = document.createElement('div');
         row.setAttribute('id','row'+i);
@@ -17,6 +30,8 @@ function createGrid(size=16){
             //console.log(`j ${j}`);
             const innerRow = document.createElement('div');
             innerRow.setAttribute('id','row-inner'+ j + '-' + i);
+            innerRow.style.height = `${unitSize}rem`;
+            innerRow.style.width = `${unitSize}rem`;
             row.appendChild(innerRow);
             innerRow.classList.add('inner');
         }
@@ -25,9 +40,8 @@ function createGrid(size=16){
         containerDiv.appendChild(column);
     }
 }
-//document.querySelector('#inner-row').setAttribute('style','border: 3px solid black;')
 
-document.body.appendChild(containerDiv);
+
 
 column.addEventListener('mouseover', (e) => {
     let target = e.target;
