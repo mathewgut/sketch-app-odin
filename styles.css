@@ -11,10 +11,8 @@
 
 .inner {
     flex: 1 auto 0;
-    margin: 5px 5px 0 0;
-    border: 3px solid black;
-    height: 40px;
-    width: 40px;
+
+    
 }
 
 .row {
@@ -30,4 +28,10 @@
 #alter-grid {
     padding: 5px;
     margin: 10px;
+}
+
+#column {
+    border: 3px solid black;
+    height: 500px;
+    width: 500px;
 }

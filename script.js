@@ -9,11 +9,12 @@ document.addEventListener('DOMContentLoaded',() => {
     createGrid();
 });
 
+
+
 function gridElementSize (inputDimension){
-    totalSize = '960';
-    const totalElements = inputDimension ** 2
-    const unitSize = totalSize/totalElements
-    pixelsPerSquare.textContent = `${unitSize}rem per square`;
+    totalSize = 500; // update to fetch current div height or width
+    const unitSize = totalSize/inputDimension;
+    pixelsPerSquare.textContent = `${unitSize}px per square`;
     containerDiv.appendChild(pixelsPerSquare);
     return unitSize
 }
@@ -30,8 +31,8 @@ function createGrid(size=16){
             //console.log(`j ${j}`);
             const innerRow = document.createElement('div');
             innerRow.setAttribute('id','row-inner'+ j + '-' + i);
-            innerRow.style.height = `${unitSize}rem`;
-            innerRow.style.width = `${unitSize}rem`;
+            innerRow.style.height = `${unitSize}px`;
+            innerRow.style.width = `${unitSize}px`;
             row.appendChild(innerRow);
             innerRow.classList.add('inner');
         }
