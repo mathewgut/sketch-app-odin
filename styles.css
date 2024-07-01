@@ -1,9 +1,12 @@
 .container-div {
     display: flex;
+    flex: auto;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
+    width: 960px;
+    height: 960px;
 }
 
 .inner {
@@ -16,11 +19,15 @@
 
 .row {
     display: flex;
-    gap: 2px;
     justify-content: center;
     align-items: center;
 }
 
 .active {
     background-color: black;
+}
+
+#alter-grid {
+    padding: 5px;
+    margin: 10px;
 }
