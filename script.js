@@ -2,11 +2,13 @@ const containerDiv = document.querySelector('#container-div');
 const column = document.createElement('div');
 column.setAttribute('id','column');
 const pixelsPerSquare = document.createElement('div');
+let currentGridSize = 0;
 
 
 document.addEventListener('DOMContentLoaded',() => {
     document.body.appendChild(containerDiv);
     createGrid();
+    fillSquareColor()
 });
 
 
@@ -20,6 +22,7 @@ function gridElementSize (inputDimension){
 }
 
 function createGrid(size=16){
+    currentGridSize = size;
     const unitSize = gridElementSize(size)
     for(let i = 0; i < size; i++){
         const row = document.createElement('div');
@@ -42,17 +45,46 @@ function createGrid(size=16){
     }
 }
 
+function rotateColorOptions(){
+    const colors = ['black','red','green','blue','purple']
+    if (colors.includes(changeColorButton.textContent)){
+        let nextPosition = 0;
+        let currentPosition = colors.indexOf(changeColorButton.textContent);
+        if(currentPosition === colors.length -1){
+            nextPosition = 0;
+            console.log(colors[nextPosition])
+            return colors[nextPosition];
+        }
+        nextPosition = currentPosition += 1;
 
+        // attempt at removing the previous color class
+        // so that colours change appropriately
+        () => {
+            previousPosition = currentPosition -1;
+            
 
-column.addEventListener('mouseover', (e) => {
-    let target = e.target;
-    console.log(target.id);
-    const activeObject = document.querySelector(`#${e.target.id}`)
-    if(target.id.includes('row-inner')){
-        activeObject.classList.add('active');
+        }
+
+        
+        console.log(currentPosition+'curr')
+        console.log(colors[nextPosition])
+        return colors[nextPosition];
+        
     }
+}
 
-})
+
+function fillSquareColor(color='black-fill'){
+    column.addEventListener('mouseover', (e) => {
+        let target = e.target;
+        console.log(target.id);
+        const activeObject = document.querySelector(`#${e.target.id}`)
+        if(target.id.includes('row-inner')){
+            activeObject.classList.add(color);
+        }
+
+    })
+}
 
 
 function getUserInput(){
@@ -69,14 +101,51 @@ function nukeGrid(){
 }    
 
 function createUserGrid(){
-    let gridSize = getUserInput();
+    let userGridSize = getUserInput();
     nukeGrid();
-    createGrid(gridSize);
+    createGrid(userGridSize);
+    currentGridSize = userGridSize;
 }
-    
 
-const gridButton = document.querySelector('#alter-grid');
+
+// container for buttons
+const buttonContainer = document.createElement('div');
+buttonContainer.classList.add('.button-container');
+
+// creating buttons
+const gridButton = document.createElement('button');
+gridButton.setAttribute('id','alter-grid');
+gridButton.classList.add('grid-button');
+gridButton.textContent = 'Resize grid';
+
+const resetGridButton = document.createElement('button')
+resetGridButton.setAttribute('id','grid-reset');
+resetGridButton.textContent = 'Reset grid';
+resetGridButton.classList.add('grid-button');
+
+const changeColorButton = document.createElement('button');
+changeColorButton.classList.add('grid-button');
+changeColorButton.textContent = 'black';
+
+buttonContainer.appendChild(gridButton);
+buttonContainer.appendChild(resetGridButton);
+buttonContainer.appendChild(changeColorButton)
+
+document.body.insertBefore(buttonContainer, containerDiv);
 
 gridButton.addEventListener('click', (e) => {
     createUserGrid();
+})
+
+resetGridButton.addEventListener('click', () => {
+    nukeGrid();
+    createGrid(currentGridSize);
+})
+
+
+// was working on this, color button doesnt work
+changeColorButton.addEventListener('click', (e) => {
+    let currentColor = rotateColorOptions();
+    changeColorButton.textContent = currentColor;
+    fillSquareColor(currentColor+'-fill')
 })
