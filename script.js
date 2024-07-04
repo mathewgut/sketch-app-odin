@@ -67,13 +67,11 @@ function rotateColorOptions(){
 function fillSquareColor(color='black-fill'){
     column.addEventListener('mouseover', (e) => {
         let target = e.target;
-        console.log(target.id);
         const activeObject = document.querySelector(`#${e.target.id}`);
         for(item in colors){
-            console.log(item)
+            console.log(colors[item])
             if (activeObject.classList.contains(colors[item]+'-fill')){
                 activeObject.classList.remove(colors[item]+'-fill');
-                console.log('class item:' + colors[item] +'-fill');
             }
         }
         if(target.id.includes('row-inner')){

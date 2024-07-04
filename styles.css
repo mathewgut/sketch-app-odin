@@ -1,8 +1,6 @@
 .container-div {
     display: flex;
-    flex: auto;
     flex-direction: row;
-    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
     width: 960px;
@@ -21,17 +19,40 @@
     align-items: center;
 }
 
-.active {
+.black-fill {
     background-color: black;
 }
 
-#alter-grid {
+.red-fill {
+    background-color: red;
+}
+
+.green-fill {
+    background-color: green;
+}
+
+.blue-fill {
+    background-color: blue;
+}
+
+.purple-fill {
+    background-color: purple;
+}
+
+.grid-button {
     padding: 5px;
     margin: 10px;
 }
 
 #column {
+    flex: 1;
     border: 3px solid black;
     height: 500px;
     width: 500px;
+    margin: 20px auto;
+}
+
+.button-container {
+    display: flex;
+    flex-direction: row;
 }
