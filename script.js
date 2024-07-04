@@ -3,6 +3,7 @@ const column = document.createElement('div');
 column.setAttribute('id','column');
 const pixelsPerSquare = document.createElement('div');
 let currentGridSize = 0;
+const colors = ['black','red','green','blue','purple']
 
 
 document.addEventListener('DOMContentLoaded',() => {
@@ -29,9 +30,7 @@ function createGrid(size=16){
         row.setAttribute('id','row'+i);
         row.classList.add('row');
 
-        //console.log(`i ${i}`)
         for(let j = 0; j < size; j++){
-            //console.log(`j ${j}`);
             const innerRow = document.createElement('div');
             innerRow.setAttribute('id','row-inner'+ j + '-' + i);
             innerRow.style.height = `${unitSize}px`;
@@ -39,50 +38,47 @@ function createGrid(size=16){
             row.appendChild(innerRow);
             innerRow.classList.add('inner');
         }
-        
+
         column.appendChild(row);
         containerDiv.appendChild(column);
     }
 }
 
+// changes current text of color button so it can be accessed by fillSquareColor()
 function rotateColorOptions(){
-    const colors = ['black','red','green','blue','purple']
     if (colors.includes(changeColorButton.textContent)){
         let nextPosition = 0;
         let currentPosition = colors.indexOf(changeColorButton.textContent);
         if(currentPosition === colors.length -1){
             nextPosition = 0;
-            console.log(colors[nextPosition])
+            console.log(colors[nextPosition]);
             return colors[nextPosition];
         }
         nextPosition = currentPosition += 1;
-
-        // attempt at removing the previous color class
-        // so that colours change appropriately
-        () => {
-            previousPosition = currentPosition -1;
-            
-
-        }
-
         
-        console.log(currentPosition+'curr')
-        console.log(colors[nextPosition])
+        console.log(currentPosition+'curr');
+        console.log(colors[nextPosition]);
         return colors[nextPosition];
-        
     }
+    console.log('invalid color option')
 }
 
-
+// uses eventlistener on container to improve performance
 function fillSquareColor(color='black-fill'){
     column.addEventListener('mouseover', (e) => {
         let target = e.target;
         console.log(target.id);
-        const activeObject = document.querySelector(`#${e.target.id}`)
+        const activeObject = document.querySelector(`#${e.target.id}`);
+        for(item in colors){
+            console.log(item)
+            if (activeObject.classList.contains(colors[item]+'-fill')){
+                activeObject.classList.remove(colors[item]+'-fill');
+                console.log('class item:' + colors[item] +'-fill');
+            }
+        }
         if(target.id.includes('row-inner')){
             activeObject.classList.add(color);
         }
-
     })
 }
 
@@ -95,7 +91,7 @@ function getUserInput(){
 
 function nukeGrid(){
     while (column.firstChild) {
-        console.log(column.firstChild)
+        console.log(column.firstChild);
         column.removeChild(column.firstChild);
     }
 }    
@@ -142,10 +138,8 @@ resetGridButton.addEventListener('click', () => {
     createGrid(currentGridSize);
 })
 
-
-// was working on this, color button doesnt work
 changeColorButton.addEventListener('click', (e) => {
     let currentColor = rotateColorOptions();
     changeColorButton.textContent = currentColor;
-    fillSquareColor(currentColor+'-fill')
+    fillSquareColor(currentColor+'-fill');
 })
